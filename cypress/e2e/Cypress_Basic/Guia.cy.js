@@ -109,8 +109,8 @@ describe.skip("Guia de Validações básicas",()=>{
 })
 
 describe("Cypress Básico", ()=>{
-    
-    describe.skip("Usabilidades", ()=>{
+
+    describe("Usabilidades", ()=>{
         it("Acessar página", ()=>{
             cy.visit("https://wcaquino.me/cypress/componentes.html")
                 cy.title().should('to.be.equal','Campo de Treinamento' )
@@ -124,7 +124,7 @@ describe("Cypress Básico", ()=>{
                     .should('have.value', 'Obrigado!')
         })
 
-        it("Pausa e Debug", ()=>{
+        it.skip("Pausa e Debug", ()=>{
             cy.visit("https://wcaquino.me/cypress/componentes.html")
 
             cy.pause()
@@ -136,29 +136,63 @@ describe("Cypress Básico", ()=>{
     })
 
     describe("Interações", ()=>{
-        it("Com texto", ()=>{
+        before(() => {
             cy.visit("https://wcaquino.me/cypress/componentes.html")
+            
+          }) 
+
+        it("Com texto", ()=>{
+            
             cy.get('body').should('contain', 'Cuidado')
             cy.get('span').should('contain', 'Cuidado')
             cy.get('.facilAchar').should('contain', 'Cuidado')
             cy.get('.facilAchar').should('have.text', 'Cuidado onde clica, muitas armadilhas...')
         })
-    })
+    
 
-    it.only("Com Links e reload", ()=>{
-        cy.visit("https://wcaquino.me/cypress/componentes.html")
-        cy.get('[href="#"]').click()
-        cy.get('#resultado').should('have.text', 'Voltou!')
+        it("Com Links e reload", ()=>{
+            cy.visit("https://wcaquino.me/cypress/componentes.html")
+            cy.get('[href="#"]').click({delay:100})
+                cy.get('#resultado').should('have.text', 'Voltou!')
 
-        cy.reload()
-        cy.contains('Voltar').click()
-        cy.get('#resultado').should('have.text', 'Voltou!')
-    })
+            cy.reload()
+            cy.contains('Voltar').click()
+                cy.get('#resultado').should('have.text', 'Voltou!')
+        })
 
-    it("Hooks", ()=>{
+        it("Campos de textos", ()=>{
+            cy.visit("https://wcaquino.me/cypress/componentes.html")
+            cy.get('#formNome').type("Guia do Cypress")
+                .should('have.value', 'Guia do Cypress')
+                
+            cy.get('#elementosForm\\:sugestoes')  /*lembrar que as vezes caracteres não são lidos, por isso o "\\" */
+                .type("Guia do Cypress")
+                .should('have.value', 'Guia do Cypress')
+
+            cy.get('#tabelaUsuarios > :nth-child(2) > :nth-child(1) > :nth-child(6) > input')
+                .type("Guia do Cypress")
+                .should('have.value', 'Guia do Cypress')
+
+            cy.get('[data-cy="dataSobrenome"]')
+                .type("Guia do Cypresss1{backspace}{backspace}",{delay:100})
+                .should('have.value', 'Guia do Cypress')
+
+            cy.get('#elementosForm\\:sugestoes')
+                .clear()
+                .type("Texto errado{selectall}Novo",{delay:100})
+                .should('have.value', 'Novo')
+        })
+        it("Radio Button", ()=>{
+            cy.visit("https://wcaquino.me/cypress/componentes.html")
+            cy.get('#formSexoFem').click()
+            .should("be.checked")   
+
+            cy.get('#formSexoMasc').should("not.be.checked") 
+        })
         
-
+        
     })
+
 })
 
 
@@ -167,7 +201,7 @@ describe("Cypress Básico", ()=>{
 
 ///---------- Mockup do cypress ---------///
 
-describe.skip("Nome do conjunto de teste", ()=>{
+describe("Nome do conjunto de teste", ()=>{
     before()
     beforeEach()
     after()
