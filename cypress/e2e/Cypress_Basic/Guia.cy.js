@@ -1,6 +1,6 @@
 /// reference types="cypress"/>
 
-describe.skip("Guia de Validações básicas",()=>{
+describe("Guia de Validações básicas",()=>{
 
     describe("Validações Numéricas",()=>{
         
@@ -15,8 +15,8 @@ describe.skip("Guia de Validações básicas",()=>{
 
             expect(a).to.not.equal(11);    
         })
-
     })
+
 
     describe("Validações Gerais", ()=>{
        
@@ -137,8 +137,7 @@ describe("Cypress Básico", ()=>{
 
     describe("Interações", ()=>{
         before(() => {
-            cy.visit("https://wcaquino.me/cypress/componentes.html")
-            
+            cy.visit("https://wcaquino.me/cypress/componentes.html") 
           }) 
 
         it("Com texto", ()=>{
@@ -184,13 +183,45 @@ describe("Cypress Básico", ()=>{
         })
         it("Radio Button", ()=>{
             cy.visit("https://wcaquino.me/cypress/componentes.html")
+
+            cy.get('[name="formSexo"]')
+                .should("to.have.length",2)
+
             cy.get('#formSexoFem').click()
             .should("be.checked")   
 
             cy.get('#formSexoMasc').should("not.be.checked") 
         })
+
+        it("CheckBox", ()=>{
+            cy.visit("https://wcaquino.me/cypress/componentes.html")
+
+            cy.get('#formComidaPizza').click()
+                .should('to.be.checked')
+
+            cy.get('[name=formComidaFavorita]').click({multiple:true}) /* para testar vários*/
+
+            cy.get('#formComidaVegetariana').click()
+                .should('to.be.not.checked')
+
+            cy.get('#formComidaPizza').click()
+                .should('to.be.checked')
+
+        })
         
-        
+        it("Combobox", ()=>{
+            cy.visit("https://wcaquino.me/cypress/componentes.html")
+
+            cy.get('[data-test="dataEscolaridade"]').select("2o grau completo")
+                .should("be.value","2graucomp") /* tem que validar com o value, não com o da option */
+        })
+
+        it("Combo Múltiplo", ()=>{
+            cy.visit("https://wcaquino.me/cypress/componentes.html")
+            
+            cy.get('[data-testid="dataEsportes"]').select(["natacao","Corrida"])/* Value*/
+
+        })
     })
 
 })
@@ -202,10 +233,23 @@ describe("Cypress Básico", ()=>{
 ///---------- Mockup do cypress ---------///
 
 describe("Nome do conjunto de teste", ()=>{
-    before()
-    beforeEach()
-    after()
-    afterEach()
+    before(() => {
+        cy.visit("https://wcaquino.me/cypress/componentes.html")
+        
+      })
+    beforeEach(() => {
+        cy.visit("https://wcaquino.me/cypress/componentes.html")
+        
+      })
+
+    after(() => {
+        cy.visit("https://wcaquino.me/cypress/componentes.html")
+        
+      })
+    afterEach(() => {
+        cy.visit("https://wcaquino.me/cypress/componentes.html")
+        
+      })
 
     it("Nome do teste", ()=>{
         
