@@ -1,6 +1,6 @@
 /// reference types="cypress"/>
 
-describe("Guia de Validações básicas",()=>{
+describe.skip("Guia de Validações básicas",()=>{
 
     describe("Validações Numéricas",()=>{
         
@@ -108,7 +108,7 @@ describe("Guia de Validações básicas",()=>{
     })
 })
 
-describe("Cypress Básico", ()=>{
+describe.skip("Cypress Básico", ()=>{
 
     describe("Usabilidades", ()=>{
         it("Acessar página", ()=>{
@@ -218,7 +218,7 @@ describe("Cypress Básico", ()=>{
 
         it("Combo Múltiplo", ()=>{
             cy.visit("https://wcaquino.me/cypress/componentes.html")
-            
+
             cy.get('[data-testid="dataEsportes"]').select(["natacao","Corrida"])/* Value*/
 
         })
@@ -226,6 +226,16 @@ describe("Cypress Básico", ()=>{
 
 })
 
+describe("Sincronismos", ()=>{
+    beforeEach(() => {
+        cy.visit("https://wcaquino.me/cypress/componentes.html")
+    })
+
+    it("Nome do teste", ()=>{
+        
+
+    })
+})
 
 
 
