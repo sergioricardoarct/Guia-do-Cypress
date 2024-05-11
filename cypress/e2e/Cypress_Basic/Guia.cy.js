@@ -1,5 +1,6 @@
 /// reference types="cypress"/>
 
+
 describe.skip("Guia de Validações básicas",()=>{
 
     describe("Validações Numéricas",()=>{
@@ -231,8 +232,24 @@ describe("Sincronismos", ()=>{
         cy.visit("https://wcaquino.me/cypress/componentes.html")
     })
 
-    it("Nome do teste", ()=>{
-        Atualizarção de HTMLObjectElement
+    it("delay e wait", ()=>{
+        cy.get('#novoCampo').should("not.exist")
+        cy.get('#buttonDelay').click()
+        cy.get('#novoCampo').should("not.exist")
+        cy.get('#novoCampo').should("exist")
+        cy.get('#novoCampo'). type("Apareceu!")
+
+    })
+    
+    it.only("Retrys", ()=>{
+        cy.get('#buttonDelay').click()
+        cy.get('#novoCampo')
+            .should("exist") 
+
+        /*O should retorar o mesmo objeto no mesmo GET, então testar varias vezes o objeto 
+        retornará o mesmo, assim retornando a mesma coisa*/
+        /*Mas se fizer outro GET, ele fará normalmente*/
+
 
     })
 })
