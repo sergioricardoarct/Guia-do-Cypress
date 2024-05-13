@@ -241,7 +241,7 @@ describe("Sincronismos", ()=>{
 
     })
     
-    it.only("Retrys", ()=>{
+    it("Retrys", ()=>{
         cy.get('#buttonDelay').click()
         cy.get('#novoCampo')
             .should("exist") 
@@ -249,9 +249,25 @@ describe("Sincronismos", ()=>{
         /*O should retorar o mesmo objeto no mesmo GET, então testar varias vezes o objeto 
         retornará o mesmo, assim retornando a mesma coisa*/
         /*Mas se fizer outro GET, ele fará normalmente*/
-
-
     })
+
+    it.only("Elemento buscado por find", ()=>{
+        
+        cy.get('#buttonList').click()
+        cy.get('#lista li')
+            .find('span') 
+            .should("to.be.visible")
+            .should("contain","Item 1")
+
+         /*As retrys temtam sempre resecultar os comandos anteriores até a execução passar,
+         se não a ação ainda não existir como no caso anterior, procuarndo o span com o item
+         2, o cypress trava a execução e mostra erro.
+         */   
+            cy.get('#lista li span')
+                .should("to.be.visible")
+                .should("contain","Item 2")
+    })
+
 })
 
 
