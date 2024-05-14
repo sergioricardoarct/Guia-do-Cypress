@@ -251,7 +251,7 @@ describe("Sincronismos", ()=>{
         /*Mas se fizer outro GET, ele fará normalmente*/
     })
 
-    it.only("Elemento buscado por find", ()=>{
+    it("Elemento buscado por find", ()=>{
         
         cy.get('#buttonList').click()
         cy.get('#lista li')
@@ -268,6 +268,17 @@ describe("Sincronismos", ()=>{
                 .should("contain","Item 2")
     })
 
+    it("Timeout e wait", ()=>{
+        cy.get('#buttonDelay').click()
+        cy.get('#novoCampo',{timeout:5000}).should("exist")/*tempo em milisegundos*/
+
+        cy.get('#buttonListDOM').click()
+        cy.wait(3000)                           /*Tentar não usar pois ele é fixo, e dependedo da 
+                                                da apliação ela atrapalha. O melhor é usar o timeout */
+        cy.get('#lista li span')
+            .should("contain","Item 2")
+    })
+    
 })
 
 
