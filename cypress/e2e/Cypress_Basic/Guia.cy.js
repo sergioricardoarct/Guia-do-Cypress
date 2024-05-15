@@ -1,8 +1,6 @@
 /// reference types="cypress"/>
 
-
 describe.skip("Guia de Validações básicas",()=>{
-
     describe("Validações Numéricas",()=>{
         
         it("Igualdades ", ()=>{
@@ -17,7 +15,6 @@ describe.skip("Guia de Validações básicas",()=>{
             expect(a).to.not.equal(11);    
         })
     })
-
 
     describe("Validações Gerais", ()=>{
        
@@ -227,7 +224,7 @@ describe.skip("Cypress Básico", ()=>{
 
 })
 
-describe("Sincronismos", ()=>{
+describe.skip("Sincronismos", ()=>{
     beforeEach(() => {
         cy.visit("https://wcaquino.me/cypress/componentes.html")
     })
@@ -279,7 +276,33 @@ describe("Sincronismos", ()=>{
             .should("contain","Item 2")
     })
     
+    it("should e then", ()=>{
+        cy.get('#buttonListDOM').click()
+        
+        cy.get('#lista li span').should($el => {
+            console.log($el)
+            expect($el).to.have.length(1)}) /* o should dispara sempre que inicia a verificação
+                                                do elemento na mesma ação do get */
+        
+        cy.get('#lista li span').then($el => {
+            console.log($el)
+            expect($el).to.have.length(1)})  /* o then dispara a verificação
+                                                do elemento depois que o get foi feito*/                                   
+    })
 })
+
+describe("Helpers", ()=>{
+    beforeEach(() => {
+        cy.visit("https://wcaquino.me/cypress/componentes.html")
+    })
+    it.only("Warp", ()=>{
+        
+
+    })
+
+})
+
+
 
 
 
