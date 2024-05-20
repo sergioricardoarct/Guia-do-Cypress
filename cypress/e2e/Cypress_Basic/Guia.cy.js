@@ -295,9 +295,15 @@ describe("Helpers", ()=>{
     beforeEach(() => {
         cy.visit("https://wcaquino.me/cypress/componentes.html")
     })
-    it.only("Warp", ()=>{
-        
+    it.only("Wrap", ()=>{
+        cy.get('#formNome')
+        .then($el=>{cy.wrap($el).type("escrever")}) /* emcasula funções que não são do cypress,
+                                                    mais continuam sendo maeadas*/
+    })
+    it.only("Its", ()=>{
+       
 
+        
     })
 
 })
