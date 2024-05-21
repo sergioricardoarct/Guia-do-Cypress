@@ -292,18 +292,20 @@ describe.skip("Sincronismos", ()=>{
 })
 
 describe("Helpers", ()=>{
-    beforeEach(() => {
+    before(() => {
         cy.visit("https://wcaquino.me/cypress/componentes.html")
     })
-    it.only("Wrap", ()=>{
+    it("Wrap", ()=>{
         cy.get('#formNome')
         .then($el=>{cy.wrap($el).type("escrever")}) /* emcasula funções que não são do cypress,
                                                     mais continuam sendo maeadas*/
     })
     it.only("Its", ()=>{
-       
+        const obj ={ nome:'Sergio' , idade:41}
+            expect(obj).to.have.property("nome")
+        cy.wrap(obj).should("have.property", "nome","Sergio") /*feito com wrap, aqui a propriedade pode exitir ou não */
 
-        
+        cy.wrap(obj).its('nome').should("to.be.equal",'Sergio') /*aqui a prpriedade já é especificamente selecionada */
     })
 
 })
