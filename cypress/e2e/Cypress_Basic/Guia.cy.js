@@ -300,13 +300,24 @@ describe("Helpers", ()=>{
         .then($el=>{cy.wrap($el).type("escrever")}) /* emcasula funções que não são do cypress,
                                                     mais continuam sendo maeadas*/
     })
-    it.only("Its", ()=>{
+    it("Its", ()=>{
         const obj ={ nome:'Sergio' , idade:41}
             expect(obj).to.have.property("nome")
         cy.wrap(obj).should("have.property", "nome","Sergio") /*feito com wrap, aqui a propriedade pode exitir ou não */
 
         cy.wrap(obj).its('nome').should("to.be.equal",'Sergio') /*aqui a prpriedade já é especificamente selecionada */
     })
+
+    it.only("Invoke ", ()=>{             /*chama funções, o its chama propriedades */
+	const fucValue = ()=> 10;
+	const soma = (a,b) => a+b;
+		
+	cy.wrap({fn: fucValue}).invoke('fn')
+		.should("be.equal", 10)
+
+    cy.wrap({fns: soma}).invoke('fns', 1,3)
+		.should("be.equal", 4)       
+        })
 
 })
 
