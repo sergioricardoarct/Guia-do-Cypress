@@ -309,19 +309,30 @@ describe("Helpers", ()=>{
     })
 
     it.only("Invoke ", ()=>{             /*chama funções, o its chama propriedades */
-	const fucValue = ()=> 10;
-	const soma = (a,b) => a+b;
+        const fucValue = ()=> 10;
+        const soma = (a,b) => a+b;
 		
-	cy.wrap({fn: fucValue}).invoke('fn')
-		.should("be.equal", 10)
+        cy.wrap({fn: fucValue}).invoke('fn')
+            .should("be.equal", 10)
 
-    cy.wrap({fns: soma}).invoke('fns', 1,3)
-		.should("be.equal", 4)       
-        })
+        cy.wrap({fns: soma}).invoke('fns', 1,3)
+            .should("be.equal", 4)       
+            })
 
 })
 
+describe("Cypress Intermediário", ()=>{
+    before(() => {
+        cy.visit("https://wcaquino.me/cypress/componentes.html")
+        
+      })
 
+    it("Nome do teste", ()=>{
+        
+
+    })
+    
+})
 
 
 
