@@ -308,7 +308,7 @@ describe("Helpers", ()=>{
         cy.wrap(obj).its('nome').should("to.be.equal",'Sergio') /*aqui a prpriedade já é especificamente selecionada */
     })
 
-    it.only("Invoke ", ()=>{             /*chama funções, o its chama propriedades */
+    it("Invoke ", ()=>{             /*chama funções, o its chama propriedades */
         const fucValue = ()=> 10;
         const soma = (a,b) => a+b;
 		
@@ -324,13 +324,14 @@ describe("Helpers", ()=>{
 describe("Cypress Intermediário", ()=>{
     before(() => {
         cy.visit("https://wcaquino.me/cypress/componentes.html")
-        
+        cy.reload()
       })
 
-    it("Nome do teste", ()=>{
-        
-
-    })
+    it.only("Alert ", ()=>{
+        cy.get("#alert").click()
+		cy.on("window:alert", msg => {console.log(msg)
+		expect(msg).to.be.equal("Alert Simples")})   
+        })
     
 })
 
