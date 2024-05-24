@@ -327,10 +327,18 @@ describe("Cypress Intermediário", ()=>{
         cy.reload()
       })
 
-    it.only("Alert ", ()=>{
+    it("Alert ", ()=>{
         cy.get("#alert").click()
 		cy.on("window:alert", msg => {console.log(msg)
 		expect(msg).to.be.equal("Alert Simples")})   
+        })
+    
+    it.only("Alert Stub", ()=> {
+        const stub = cy.stub().as("alerta")          /* stub emula funções que seriam necessarias de back end. assim podendo ser */
+		cy.on("window:alert", stub)                  /* usada para implementar chamadas com controle */
+        cy.get("#alert")                            /* O .as nomeia */
+            .click()
+            .then(()=>{expect(stub.getCall(0)).to.be.calledWith("Alert Simples")})
         })
     
 })
