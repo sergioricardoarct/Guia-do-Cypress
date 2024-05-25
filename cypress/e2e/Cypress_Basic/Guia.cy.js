@@ -333,7 +333,7 @@ describe("Cypress Intermediário", ()=>{
 		expect(msg).to.be.equal("Alert Simples")})   
         })
     
-    it.only("Alert Stub", ()=> {
+    it("Alert Stub", ()=> {
         const stub = cy.stub().as("alerta")          /* stub emula funções que seriam necessarias de back end. assim podendo ser */
 		cy.on("window:alert", stub)                  /* usada para implementar chamadas com controle */
         cy.get("#alert")                            /* O .as nomeia */
@@ -341,6 +341,27 @@ describe("Cypress Intermediário", ()=>{
             .then(()=>{expect(stub.getCall(0)).to.be.calledWith("Alert Simples")})
         })
     
+    it.only("Confirm", ()=> {
+		
+		cy.on("windon:confirm", msg=>{
+		expect (msg).to.be.equal("Confirm Simples")})
+		
+		cy.on("windon:alert", msg=>{
+		expect (msg).to.be.equal("Confirmado")})
+
+		cy.get("#confirm").click()
+	})
+
+	it.only("Deny", ()=> {
+		
+		cy.on("windon:confirm", msg=>{
+		expect (msg).to.be.equal("Confirm Simples")
+		return false})
+		cy.on("windon:alert", msg=>{
+		expect (msg).to.be.equal("Negado")})
+
+		
+	})
 })
 
 
